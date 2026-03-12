@@ -1,0 +1,38 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/node_modules
+/.pnp
+.pnp.js
+
+# testing
+/coverage
+
+# production
+/build
+
+# python and backend
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+env/
+.env
+.venv
+backend/node_modules/
+backend/yolon8/venv/
+backend/yolo_v8/
+yolov8n.pt
+*.pt
+
+# python and backend
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+env/
+.env
+.venv
+backend/node_modules/
+backend/yolon8/venv/
+yolov8n.pt

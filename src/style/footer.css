@@ -1,0 +1,144 @@
+.footer_section {
+  background-color: #0d9018;
+  color: #f1f1f1; /* Lighter text for contrast */
+  padding: 2rem 0;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  font-family: "Exo 2", serif;
+}
+
+.footer_section a {
+  color: #ffffff; /* White links for visibility */
+  text-decoration: none;
+}
+
+.footer_section a:hover {
+  text-decoration: underline;
+  color: #c0eaff; /* Light blue hover color */
+}
+
+.footer_container {
+  max-width: 1140px;
+  margin: 0 auto;
+}
+
+.footer_padding {
+  padding: 1rem 0;
+}
+
+.footer_section .col-md-4 {
+  margin-bottom: 1.5rem;
+  margin-right: 200px;
+  margin-left: 80px;
+}
+
+.contact_us {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  color: #ffffff;
+}
+
+.number {
+  font-size: 1.2rem;
+  color: #e4f9e2;
+}
+
+.gmail {
+  font-size: 1rem;
+  margin-top: -px;
+  color: #e4f9e2;
+}
+
+.com {
+  font-family: "Exo 2", serif;
+  font-size: 1.2rem;
+  color: #ffffff;
+}
+
+.find_us {
+  font-family: "Exo 2", serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.find_us_ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  gap: 1rem;
+}
+
+.find_us_ul li img {
+  width: 30px;
+  height: 30px;
+  transition: transform 0.3s ease;
+}
+
+.find_us_ul li img:hover {
+  transform: scale(1.1);
+}
+
+.footer-address .logo_class {
+  width: 150px;
+  margin-bottom: 1rem;
+  border-radius: 0.5rem;
+  width: 7rem;
+}
+
+.footer-address .swapeco {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #fdfdfd;
+}
+
+.footer-address p {
+  margin-bottom: 0.5rem;
+  color: #e4f9e2;
+}
+
+.helper-action {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  z-index: 1000;
+}
+
+.helper-action ul {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  list-style: none;
+}
+
+.helper-action ul li img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #fff;
+  padding: 0.3rem;
+  transition: transform 0.3s ease;
+}
+
+.helper-action ul li img:hover {
+  transform: scale(1.1);
+}
+
+@media (max-width: 768px) {
+  .footer_section .row {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .footer_section .col-md-4 {
+    width: 100%;
+  }
+
+  .find_us_ul {
+    justify-content: center;
+  }
+}
