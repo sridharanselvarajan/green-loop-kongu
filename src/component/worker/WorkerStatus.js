@@ -6,7 +6,7 @@ import { GlobalContext } from "../home/GlobalContext";
 
 const WorkerList = () => {
   const [scrapData, setScrapData] = useState([]);
-  const { globalId, setGlobalId } = useContext(GlobalContext);
+  const { globalId } = useContext(GlobalContext);
 
   useEffect(() => {
     async function handleScrapData() {
@@ -21,7 +21,7 @@ const WorkerList = () => {
       setScrapData(filteredOrders);
     }
     handleScrapData();
-  }, []);
+  }, [globalId]);
 
   const [statusFilter, setStatusFilter] = useState("all");
   const [dateFilter, setDateFilter] = useState("");

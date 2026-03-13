@@ -9,8 +9,7 @@ import { GlobalContext } from "../home/GlobalContext";
 function WorkerHome() {
   const [scrapData, setScrapData] = useState([]);
   const [scrapDatafordb, setScrapDatafordb] = useState([]);
-  const { globalId, setGlobalId } = useContext(GlobalContext);
-
+  const { globalId } = useContext(GlobalContext);
   useEffect(() => {
     async function handleScrapData() {
       const res = await axios.get(`${process.env.REACT_APP_API_URL || "http://localhost:3000"}/api/v1/user`);
@@ -53,14 +52,14 @@ function WorkerHome() {
         return { ...item };
       });
       const orderdetail = [...otherorder, ...setSellingStatus];
-      const resworkercompletedupdate = await axios.put(
+      await axios.put(
         `${process.env.REACT_APP_API_URL || "http://localhost:3000"}/api/v1/worker/${globalId}`,
         { order: orderdetail }
       );
-      // console.log(resworkercompletedupdate);
+      // console.log("update complete");
     }
     handleScrapData();
-  }, []);
+  }, [globalId]);
 
   async function handleStatus(id, status) {
     const updatedScrapData = scrapDatafordb.map((item, i) =>

@@ -9,7 +9,7 @@ import toast, { Toaster } from "react-hot-toast";
 
 function Schedule() {
   const navigate = useNavigate();
-  const { globalId, setGlobalId } = useContext(GlobalContext);
+  const { globalId } = useContext(GlobalContext);
 
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");

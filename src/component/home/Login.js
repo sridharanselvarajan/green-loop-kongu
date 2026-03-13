@@ -13,7 +13,7 @@ import { GlobalContext } from "./GlobalContext";
 
 function Login() {
   const navigate = useNavigate();
-  const { globalId, setGlobalId } = useContext(GlobalContext);
+  const { setGlobalId } = useContext(GlobalContext);
   const [details, setDetails] = useState({
     email: "",
     password: "",
