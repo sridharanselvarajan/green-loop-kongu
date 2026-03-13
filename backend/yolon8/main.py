@@ -70,10 +70,17 @@ async def predict(file: UploadFile = File(...)):
 async def detect(file: UploadFile = File(...)):
     ext = file.filename.split('.')[-1] if file.filename else 'jpg'
     file_path = f"{UPLOAD_DIR}/{uuid.uuid4().hex}.{ext}"
+
     with open(file_path, "wb") as buffer:
         shutil.copyfileobj(file.file, buffer)
-    result = detect_waste(file_path)
+
+    try:
+        result = detect_waste(file_path)
+    except Exception as e:
+        return {"error": str(e)}
+
     if os.path.exists(file_path):
         os.remove(file_path)
+
     return result
 
