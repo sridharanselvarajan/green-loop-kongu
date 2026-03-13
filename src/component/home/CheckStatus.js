@@ -14,7 +14,7 @@ function CheckStatus() {
   const [scheduleStatuses, setScheduleStatuses] = useState([]);
   const [canceledStatuses, setCanceledStatuses] = useState([]);
   const [completedStatuses, setCompletedStatuses] = useState([]);
-  const { globalId, setGlobalId } = useContext(GlobalContext);
+  const { globalId } = useContext(GlobalContext);
   useEffect(() => {
     async function handleSchedule() {
       const res = await axios.get(
@@ -35,7 +35,7 @@ function CheckStatus() {
       setCompletedStatuses(filteredOrdersforcompleted);
     }
     handleSchedule();
-  }, []);
+  }, [globalId]);
 
   const navigate = useNavigate();
   const [clickSchedule, setClickSchedule] = useState([true, false, false]);

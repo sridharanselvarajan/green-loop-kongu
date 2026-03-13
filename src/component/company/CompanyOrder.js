@@ -26,6 +26,7 @@ const CompanyOrder = () => {
         console.error("Error fetching data:", error);
       }
     }, 300),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     []
   );
 
@@ -85,7 +86,7 @@ const CompanyOrder = () => {
           .replace(/\s+/g, "")
           .replace(/:/g, "");
 
-        const resworkercompany = await axios.put(
+        await axios.put(
           `${process.env.REACT_APP_API_URL || "http://localhost:3000"}/api/v1/user/worker/company/${sanitizedPhone}`,
           {
             grouporder: groupOrderDetail,

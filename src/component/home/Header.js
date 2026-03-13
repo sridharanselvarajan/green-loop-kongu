@@ -5,7 +5,6 @@ import "../../style/header.css";
 import toast from "react-hot-toast";
 import axios from "axios";
 import { GlobalContext } from "./GlobalContext";
-import you from "./YouTubeVideoSearch";
 
 function Header() {
   const [credentials, setCredentials] = useState({ email: "", password: "" });
