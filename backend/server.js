@@ -38,9 +38,7 @@ app.post("/api/yolo/predict", upload.single("file"), async (req, res) => {
       filename: req.file.originalname,
       contentType: req.file.mimetype,
     });
-    const response = await axios.post(`${YOLO_API_URL}/predict/`, form, {
-      headers: form.getHeaders(),
-    });
+    const response = await axios.post(`${YOLO_API_URL}/predict/`, form);
     res.json(response.data);
   } catch (error) {
     console.error("YOLO predict error:", error.message);
@@ -56,9 +54,7 @@ app.post("/api/yolo/detect", upload.single("file"), async (req, res) => {
       filename: req.file.originalname,
       contentType: req.file.mimetype,
     });
-    const response = await axios.post(`${YOLO_API_URL}/detect/`, form, {
-      headers: form.getHeaders(),
-    });
+    const response = await axios.post(`${YOLO_API_URL}/detect/`, form);
     res.json(response.data);
   } catch (error) {
     console.error("YOLO detect error:", error.message);
