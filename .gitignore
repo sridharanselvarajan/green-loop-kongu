@@ -24,6 +24,8 @@ backend/yolon8/venv/
 backend/yolo_v8/
 yolov8n.pt
 *.pt
+uploads/
+
 
 # python and backend
 __pycache__/

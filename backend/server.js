@@ -7,15 +7,59 @@ const companySchema = require("./model/companySchema.js");
 const adminSchema = require("./model/adminSchema.js");
 const scraprateSchema = require("./model/scraprateSchema.js");
 const axios = require("axios");
+const multer = require("multer");
+const FormData = require("form-data");
 
 const ScrapItem = require('./model/ScrapItemSchema.js');
 
-
-
 require("dotenv").config();
+
 const app = express();
 app.use(express.json());
 app.use(cors());
+
+// YOLO API URL - set this to your Render Python service URL in production
+const YOLO_API_URL = process.env.YOLO_API_URL || "http://localhost:8000";
+
+// Multer for handling image uploads (store in memory, forward to YOLO)
+const upload = multer({ storage: multer.memoryStorage() });
+
+// Proxy: forward image uploads to YOLO Python service
+app.post("/api/yolo/predict", upload.single("file"), async (req, res) => {
+  try {
+    if (!req.file) return res.status(400).json({ message: "No file uploaded" });
+    const form = new FormData();
+    form.append("file", req.file.buffer, {
+      filename: req.file.originalname,
+      contentType: req.file.mimetype,
+    });
+    const response = await axios.post(`${YOLO_API_URL}/predict/`, form, {
+      headers: form.getHeaders(),
+    });
+    res.json(response.data);
+  } catch (error) {
+    console.error("YOLO predict error:", error.message);
+    res.status(500).json({ message: "YOLO service error", error: error.message });
+  }
+});
+
+app.post("/api/yolo/detect", upload.single("file"), async (req, res) => {
+  try {
+    if (!req.file) return res.status(400).json({ message: "No file uploaded" });
+    const form = new FormData();
+    form.append("file", req.file.buffer, {
+      filename: req.file.originalname,
+      contentType: req.file.mimetype,
+    });
+    const response = await axios.post(`${YOLO_API_URL}/detect/`, form, {
+      headers: form.getHeaders(),
+    });
+    res.json(response.data);
+  } catch (error) {
+    console.error("YOLO detect error:", error.message);
+    res.status(500).json({ message: "YOLO service error", error: error.message });
+  }
+});
 
 db()
   .then(() => console.log("Database connected"))

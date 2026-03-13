@@ -1,8 +1,10 @@
 from ultralytics import YOLO
 import cv2
 import base64
+import os
 
-model = YOLO("model/best.pt")
+model = YOLO(os.environ.get("MODEL_PATH", "model/best.pt"))
+
 SUGGESTIONS = {
     "Clothes -Biodegradable-": "Recycle or compost clothes waste if possible.",
     "Clothes Waste": "Donate or dispose of clothes in our app.",

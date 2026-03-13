@@ -1,0 +1,10 @@
+{
+  "python.defaultInterpreterPath": "f:/greenloop/backend/yolon8/venv/Scripts/python.exe",
+  "python.pythonPath": "f:/greenloop/backend/yolon8/venv/Scripts/python.exe",
+  "python.analysis.extraPaths": [
+    "f:/greenloop/backend/yolon8/venv/Lib/site-packages"
+  ],
+  "python.analysis.typeCheckingMode": "off",
+  "python.venvPath": "f:/greenloop/backend/yolon8",
+  "python.analysis.autoImportCompletions": true
+}

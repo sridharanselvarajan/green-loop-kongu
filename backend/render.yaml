@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: greenloop-backend
+    runtime: node
+    rootDir: backend
+    buildCommand: npm install
+    startCommand: node server.js
+    envVars:
+      - key: MONGO_URI
+        sync: false
+      - key: PORT
+        value: 3000
+      - key: YOLO_API_URL
+        sync: false
