@@ -37,13 +37,10 @@ from model.detect import predict_waste, detect_waste
 
 app = FastAPI(title="GreenLoop YOLO API")
 
-# Allow all origins in dev; restrict via ALLOWED_ORIGINS env var in production
-allowed_origins = os.environ.get("ALLOWED_ORIGINS", "*").split(",")
-
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"] if "*" in allowed_origins else allowed_origins,
-    allow_credentials=True,
+    allow_origins=["*"],
+    allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
 )

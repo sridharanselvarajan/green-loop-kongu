@@ -28,7 +28,7 @@ SUGGESTIONS = {
 }
 
 def predict_waste(image_path):
-    results = model.predict(image_path)
+    results = model.predict(image_path, imgsz=320)
     if not results or results[0].boxes.cls is None:
         return {"category": "No waste detected", "suggestion": "Try another image."}
     predictions = results[0].boxes.cls.tolist()
@@ -40,7 +40,7 @@ def predict_waste(image_path):
     return {"category": category, "suggestion": suggestion}
 
 def detect_waste(image_path):
-    results = model.predict(image_path, conf=0.1)
+    results = model.predict(image_path, conf=0.1, imgsz=320)
     detections = []
     if not results or len(results) == 0:
         return {"image": "", "detections": []}
