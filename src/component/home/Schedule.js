@@ -24,7 +24,7 @@ function Schedule() {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:3000/api/v1/scraprate"
+          `${process.env.REACT_APP_API_URL || "http://localhost:3000"}/api/v1/scraprate`
         );
         setWasteCategories(response.data);
       } catch (error) {
@@ -38,19 +38,19 @@ function Schedule() {
     e.preventDefault();
 
     const resget = await axios.get(
-      `http://localhost:3000/api/v1/user/${globalId}`
+      `${process.env.REACT_APP_API_URL || "http://localhost:3000"}/api/v1/user/${globalId}`
     );
     const phoneNumber = resget.data.phone;
     const customerName = resget.data.name;
     const orders = Array.isArray(resget.data.order) ? resget.data.order : [];
 
     const response = await axios.get(
-      `http://localhost:3000/api/v1/scraprate/${category}`
+      `${process.env.REACT_APP_API_URL || "http://localhost:3000"}/api/v1/scraprate/${category}`
     );
     const item = response.data[0];
     console.log(item);
 
-    await axios.put(`http://localhost:3000/api/v1/user/${globalId}`, {
+    await axios.put(`${process.env.REACT_APP_API_URL || "http://localhost:3000"}/api/v1/user/${globalId}`, {
       order: [
         ...orders,
         {

@@ -14,7 +14,7 @@ function Sellingproduct() {
     async function fetchAndUseScrapData() {
       try {
         const resworker = await axios.get(
-          `http://localhost:3000/api/v1/worker/${globalId}`
+          `${process.env.REACT_APP_API_URL || "http://localhost:3000"}/api/v1/worker/${globalId}`
         );
 
         const name = resworker.data.name;
@@ -65,7 +65,7 @@ function Sellingproduct() {
     );
 
     const resCategory = await axios.get(
-      `http://localhost:3000/api/v1/worker/${globalId}`
+      `${process.env.REACT_APP_API_URL || "http://localhost:3000"}/api/v1/worker/${globalId}`
     );
     const order = resCategory.data.order;
     const categoryOrder = order.map((item) =>
@@ -73,7 +73,7 @@ function Sellingproduct() {
     );
     try {
       const res1 = await axios.put(
-        `http://localhost:3000/api/v1/worker/${globalId}`,
+        `${process.env.REACT_APP_API_URL || "http://localhost:3000"}/api/v1/worker/${globalId}`,
         {
           order: categoryOrder,
         }
@@ -86,7 +86,7 @@ function Sellingproduct() {
     setScrapData(updatedData);
 
     try {
-      await axios.put(`http://localhost:3000/api/v1/worker/${globalId}`, {
+      await axios.put(`${process.env.REACT_APP_API_URL || "http://localhost:3000"}/api/v1/worker/${globalId}`, {
         grouporder: updatedData,
       });
       toast.success("Ready to Sell");

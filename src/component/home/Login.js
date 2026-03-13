@@ -22,7 +22,7 @@ function Login() {
 
   async function handleworker() {
     try {
-      const res = await axios.get("http://localhost:3000/api/v1/worker");
+      const res = await axios.get(`${process.env.REACT_APP_API_URL || "http://localhost:3000"}/api/v1/worker`);
       const data = res.data;
       const matchedWorker = data.find(
         (worker) =>
@@ -44,7 +44,7 @@ function Login() {
 
   async function handlecustomer() {
     try {
-      const res = await axios.get("http://localhost:3000/api/v1/user");
+      const res = await axios.get(`${process.env.REACT_APP_API_URL || "http://localhost:3000"}/api/v1/user`);
       const data = res.data;
       const matchedCompany = data.find(
         (user) =>
@@ -67,7 +67,7 @@ function Login() {
 
   async function handlecompany() {
     try {
-      const res = await axios.get("http://localhost:3000/api/v1/company");
+      const res = await axios.get(`${process.env.REACT_APP_API_URL || "http://localhost:3000"}/api/v1/company`);
       const data = res.data;
       console.log(data);
       const matchedCompany = data.find(

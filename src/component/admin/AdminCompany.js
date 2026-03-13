@@ -18,7 +18,7 @@ const AdminCompany = () => {
 
   async function fetchWorkers() {
     try {
-      const res = await axios.get("http://localhost:3000/api/v1/admin");
+      const res = await axios.get(`${process.env.REACT_APP_API_URL || "http://localhost:3000"}/api/v1/admin`);
       setCompanys(res.data[0]?.company || []);
     } catch (error) {
       console.error("Error fetching workers:", error);
@@ -30,20 +30,20 @@ const AdminCompany = () => {
     console.log(companys);
     try {
       const res = await axios.get(
-        `http://localhost:3000/api/v1/admin/${globalId}`
+        `${process.env.REACT_APP_API_URL || "http://localhost:3000"}/api/v1/admin/${globalId}`
       );
       const otherCompany = res.data.company.filter(
         (item) => item.email !== company.email
       );
       const updatedCompany = { ...company, status: "added" };
 
-      await axios.put(`http://localhost:3000/api/v1/admin/${globalId}`, {
+      await axios.put(`${process.env.REACT_APP_API_URL || "http://localhost:3000"}/api/v1/admin/${globalId}`, {
         company: [...otherCompany, updatedCompany],
       });
       setCompanys([...otherCompany, updatedCompany]);
 
       const addcompany = { ...company, order: [] };
-      await axios.post("http://localhost:3000/api/v1/company", addcompany);
+      await axios.post(`${process.env.REACT_APP_API_URL || "http://localhost:3000"}/api/v1/company`, addcompany);
       const template = {
         password: addcompany.password,
       };
@@ -63,18 +63,18 @@ const AdminCompany = () => {
   async function handleRemoveWorker(company) {
     try {
       const res = await axios.get(
-        `http://localhost:3000/api/v1/admin/${globalId}`
+        `${process.env.REACT_APP_API_URL || "http://localhost:3000"}/api/v1/admin/${globalId}`
       );
       const updatedCompanys = res.data.company.filter(
         (item) => item.email !== company.email
       );
 
-      await axios.put(`http://localhost:3000/api/v1/admin/${globalId}`, {
+      await axios.put(`${process.env.REACT_APP_API_URL || "http://localhost:3000"}/api/v1/admin/${globalId}`, {
         company: updatedCompanys,
       });
       setCompanys(updatedCompanys);
 
-      await axios.delete(`http://localhost:3000/api/v1/company/${company._id}`);
+      await axios.delete(`${process.env.REACT_APP_API_URL || "http://localhost:3000"}/api/v1/company/${company._id}`);
       toast.success("Company Removed Successfull");
     } catch (error) {
       toast.error("failed to remove company");

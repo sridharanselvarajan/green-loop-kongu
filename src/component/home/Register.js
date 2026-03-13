@@ -41,7 +41,7 @@ function Register() {
     setError("");
 
     try {
-      const response = await axios.post("http://localhost:3000/api/v1/user", {
+      const response = await axios.post(`${process.env.REACT_APP_API_URL || "http://localhost:3000"}/api/v1/user`, {
         name: details.name,
         email: details.email,
         password: details.password,

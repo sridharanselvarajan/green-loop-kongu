@@ -18,7 +18,7 @@ const AdminDashboard = () => {
 
   async function fetchWorkers() {
     try {
-      const res = await axios.get("http://localhost:3000/api/v1/admin");
+      const res = await axios.get(`${process.env.REACT_APP_API_URL || "http://localhost:3000"}/api/v1/admin`);
       setWorkers(res.data[0]?.worker || []);
     } catch (error) {
       console.error("❌ Error fetching workers:", error);
@@ -29,20 +29,20 @@ const AdminDashboard = () => {
   async function handleAddToJoin(worker) {
     try {
       const res = await axios.get(
-        `http://localhost:3000/api/v1/admin/${globalId}`
+        `${process.env.REACT_APP_API_URL || "http://localhost:3000"}/api/v1/admin/${globalId}`
       );
       const otherWorkers = res.data.worker.filter(
         (item) => item.email !== worker.email
       );
       const updatedWorker = { ...worker, status: "added" };
 
-      await axios.put(`http://localhost:3000/api/v1/admin/${globalId}`, {
+      await axios.put(`${process.env.REACT_APP_API_URL || "http://localhost:3000"}/api/v1/admin/${globalId}`, {
         worker: [...otherWorkers, updatedWorker],
       });
       setWorkers([...otherWorkers, updatedWorker]);
 
       const addWorker = { ...worker, order: [], grouporder: [] };
-      await axios.post("http://localhost:3000/api/v1/worker", addWorker);
+      await axios.post(`${process.env.REACT_APP_API_URL || "http://localhost:3000"}/api/v1/worker`, addWorker);
       const template = {
         password: addWorker.password,
       };
@@ -63,18 +63,18 @@ const AdminDashboard = () => {
   async function handleRemoveWorker(worker) {
     try {
       const res = await axios.get(
-        `http://localhost:3000/api/v1/admin/${globalId}`
+        `${process.env.REACT_APP_API_URL || "http://localhost:3000"}/api/v1/admin/${globalId}`
       );
       const updatedWorkers = res.data.worker.filter(
         (item) => item.email !== worker.email
       );
 
-      await axios.put(`http://localhost:3000/api/v1/admin/${globalId}`, {
+      await axios.put(`${process.env.REACT_APP_API_URL || "http://localhost:3000"}/api/v1/admin/${globalId}`, {
         worker: updatedWorkers,
       });
       setWorkers(updatedWorkers);
 
-      await axios.delete(`http://localhost:3000/api/v1/worker/${worker._id}`);
+      await axios.delete(`${process.env.REACT_APP_API_URL || "http://localhost:3000"}/api/v1/worker/${worker._id}`);
       toast.success("Worker Removed ");
     } catch (error) {
       toast.error("failed to remove worker");

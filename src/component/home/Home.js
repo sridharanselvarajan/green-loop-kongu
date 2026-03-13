@@ -85,7 +85,7 @@ function Home() {
     const formData = new FormData();
     formData.append('file', blob, 'webcam-frame.jpg');
 
-    const response = await axios.post("http://127.0.0.1:8000/detect/", formData, {
+    const response = await axios.post(`${process.env.REACT_APP_YOLO_API_URL || "http://127.0.0.1:8000"}/detect/`, formData, {
       headers: { "Content-Type": "multipart/form-data" },
     });
 
@@ -253,7 +253,7 @@ function DropPhoto({ setDetections }) {
     formData.append("file", file);
 
     try {
-      const response = await axios.post("http://127.0.0.1:8000/detect/", formData, {
+      const response = await axios.post(`${process.env.REACT_APP_YOLO_API_URL || "http://127.0.0.1:8000"}/detect/`, formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
 

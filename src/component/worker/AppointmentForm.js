@@ -43,7 +43,7 @@ function AppointmentForm() {
       };
 
       // Fetch existing admin data
-      const res = await axios.get("http://localhost:3000/api/v1/admin");
+      const res = await axios.get(`${process.env.REACT_APP_API_URL || "http://localhost:3000"}/api/v1/admin`);
       const admin = res.data[0];
 
       if (!admin) {
@@ -62,7 +62,7 @@ function AppointmentForm() {
       // Update worker list
       const updatedWorkers = [...admin.worker, newWorker];
 
-      await axios.put(`http://localhost:3000/api/v1/admin/${admin._id}`, { worker: updatedWorkers });
+      await axios.put(`${process.env.REACT_APP_API_URL || "http://localhost:3000"}/api/v1/admin/${admin._id}`, { worker: updatedWorkers });
 
       toast.success("Your application has been submitted successfully!");
     } catch (error) {

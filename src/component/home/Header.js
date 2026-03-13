@@ -24,7 +24,7 @@ function Header() {
   async function handleAdmit(e) {
     e.preventDefault();
     try {
-      const res = await axios.get("http://localhost:3000/api/v1/admin");
+      const res = await axios.get(`${process.env.REACT_APP_API_URL || "http://localhost:3000"}/api/v1/admin`);
       const data = res.data;
 
       const matchedAdmin = data.find(

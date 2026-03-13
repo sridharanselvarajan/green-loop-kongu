@@ -18,7 +18,7 @@ function CheckStatus() {
   useEffect(() => {
     async function handleSchedule() {
       const res = await axios.get(
-        `http://localhost:3000/api/v1/user/${globalId}`
+        `${process.env.REACT_APP_API_URL || "http://localhost:3000"}/api/v1/user/${globalId}`
       );
       const order = res.data.order;
       const filteredOrdersforschedue = order.filter(

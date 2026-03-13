@@ -32,7 +32,7 @@ function CompanyAddForm() {
         await new Promise((resolve) => setTimeout(resolve, 500)); // Debounce API calls
 
         const response = await axios.post(
-          "http://localhost:3000/api/verify-gst",
+          `${process.env.REACT_APP_API_URL || "http://localhost:3000"}/api/verify-gst`,
           { gstin: gst }
         );
 
@@ -79,7 +79,7 @@ function CompanyAddForm() {
         };
 
         // Fetch admin data
-        const res = await axios.get("http://localhost:3000/api/v1/admin");
+        const res = await axios.get(`${process.env.REACT_APP_API_URL || "http://localhost:3000"}/api/v1/admin`);
         const admin = res.data[0];
 
         if (!admin) {
@@ -99,7 +99,7 @@ function CompanyAddForm() {
         // Update company data
         const updatedCompany = [...admin.company, newCompany];
 
-        await axios.put(`http://localhost:3000/api/v1/admin/${admin._id}`, {
+        await axios.put(`${process.env.REACT_APP_API_URL || "http://localhost:3000"}/api/v1/admin/${admin._id}`, {
           company: updatedCompany,
         });
 

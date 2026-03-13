@@ -13,7 +13,7 @@ function WorkerHome() {
 
   useEffect(() => {
     async function handleScrapData() {
-      const res = await axios.get("http://localhost:3000/api/v1/user");
+      const res = await axios.get(`${process.env.REACT_APP_API_URL || "http://localhost:3000"}/api/v1/user`);
       const data = res.data;
       let orders = [];
 
@@ -24,7 +24,7 @@ function WorkerHome() {
       });
       // console.log(orders);
       const resworker = await axios.get(
-        `http://localhost:3000/api/v1/worker/${globalId}`
+        `${process.env.REACT_APP_API_URL || "http://localhost:3000"}/api/v1/worker/${globalId}`
       );
       const Workeraddress = resworker.data.landmark;
       let filteredOrders = orders.filter(
@@ -42,7 +42,7 @@ function WorkerHome() {
       setScrapDatafordb(landmarkorder);
       // console.log(scrapDatafordb);//
       const resworkercompleted = await axios.get(
-        `http://localhost:3000/api/v1/worker/${globalId}`
+        `${process.env.REACT_APP_API_URL || "http://localhost:3000"}/api/v1/worker/${globalId}`
       );
       const order = resworkercompleted.data.order;
       console.log(order);
@@ -54,7 +54,7 @@ function WorkerHome() {
       });
       const orderdetail = [...otherorder, ...setSellingStatus];
       const resworkercompletedupdate = await axios.put(
-        `http://localhost:3000/api/v1/worker/${globalId}`,
+        `${process.env.REACT_APP_API_URL || "http://localhost:3000"}/api/v1/worker/${globalId}`,
         { order: orderdetail }
       );
       // console.log(resworkercompletedupdate);
@@ -71,14 +71,14 @@ function WorkerHome() {
     setScrapDatafordb(updatedScrapData);
 
     try {
-      await axios.put(`http://localhost:3000/api/v1/worker/${globalId}`, {
+      await axios.put(`${process.env.REACT_APP_API_URL || "http://localhost:3000"}/api/v1/worker/${globalId}`, {
         order: updatedScrapData,
       });
 
       const completedOrder = updatedScrapData.find((item) => item._id === id);
       console.log(completedOrder);
 
-      const resUsers = await axios.get("http://localhost:3000/api/v1/user");
+      const resUsers = await axios.get(`${process.env.REACT_APP_API_URL || "http://localhost:3000"}/api/v1/user`);
       const users = resUsers.data;
 
       const user = users.find((u) => u.phone === completedOrder.phone);
@@ -96,7 +96,7 @@ function WorkerHome() {
       );
 
       await axios.put(
-        `http://localhost:3000/api/v1/user/worker/:${user.phone}`,
+        `${process.env.REACT_APP_API_URL || "http://localhost:3000"}/api/v1/user/worker/:${user.phone}`,
         {
           order: updatedOrders,
         }

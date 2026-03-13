@@ -11,7 +11,7 @@ const WorkerList = () => {
   useEffect(() => {
     async function handleScrapData() {
       const resworker = await axios.get(
-        `http://localhost:3000/api/v1/worker/${globalId}`
+        `${process.env.REACT_APP_API_URL || "http://localhost:3000"}/api/v1/worker/${globalId}`
       );
       let filteredOrders = resworker.data.order;
       console.log(filteredOrders)

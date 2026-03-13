@@ -14,7 +14,7 @@ const CompanyOrder = () => {
   const fetchGroupOrder = useCallback(
     debounce(async () => {
       try {
-        const res = await axios.get("http://localhost:3000/api/v1/worker");
+        const res = await axios.get(`${process.env.REACT_APP_API_URL || "http://localhost:3000"}/api/v1/worker`);
         let grouporder = res.data.flatMap((item) => item.grouporder || []);
 
         setUsers((prevUsers) =>
@@ -39,7 +39,7 @@ const CompanyOrder = () => {
       setLoading(true);
       try {
         const resorder = await axios.get(
-          `http://localhost:3000/api/v1/company/${globalId}`
+          `${process.env.REACT_APP_API_URL || "http://localhost:3000"}/api/v1/company/${globalId}`
         );
         const remainingOrder =
           resorder.data.order === undefined ? [] : resorder.data.order;
@@ -47,12 +47,12 @@ const CompanyOrder = () => {
 
         await fetchGroupOrder();
 
-        await axios.put(`http://localhost:3000/api/v1/company/${globalId}`, {
+        await axios.put(`${process.env.REACT_APP_API_URL || "http://localhost:3000"}/api/v1/company/${globalId}`, {
           order: [...remainingOrder, confirmOrder],
         });
 
         const resworker = await axios.get(
-          "http://localhost:3000/api/v1/worker"
+          `${process.env.REACT_APP_API_URL || "http://localhost:3000"}/api/v1/worker`
         );
         let worker = resworker.data.find((item) => item.phone === order.phone);
 
@@ -86,7 +86,7 @@ const CompanyOrder = () => {
           .replace(/:/g, "");
 
         const resworkercompany = await axios.put(
-          `http://localhost:3000/api/v1/user/worker/company/${sanitizedPhone}`,
+          `${process.env.REACT_APP_API_URL || "http://localhost:3000"}/api/v1/user/worker/company/${sanitizedPhone}`,
           {
             grouporder: groupOrderDetail,
           }
@@ -94,7 +94,7 @@ const CompanyOrder = () => {
 
         const id = worker._id;
         const response = await axios.get(
-          `http://localhost:3000/api/v1/worker/${id}`
+          `${process.env.REACT_APP_API_URL || "http://localhost:3000"}/api/v1/worker/${id}`
         );
 
         const companydata = {
@@ -112,7 +112,7 @@ const CompanyOrder = () => {
             : item
         );
         console.log(groupcompany);
-        await axios.put(`http://localhost:3000/api/v1/worker/${id}`, {
+        await axios.put(`${process.env.REACT_APP_API_URL || "http://localhost:3000"}/api/v1/worker/${id}`, {
           grouporder: groupcompany,
         });
         const confirmorderworkerconfirm = response.data.order.map((item) =>
@@ -120,7 +120,7 @@ const CompanyOrder = () => {
             ? { ...item, companydata: companydata, sellingStatus: "confirm" }
             : item
         );
-        await axios.put(`http://localhost:3000/api/v1/worker/${id}`, {
+        await axios.put(`${process.env.REACT_APP_API_URL || "http://localhost:3000"}/api/v1/worker/${id}`, {
           order: confirmorderworkerconfirm,
         });
         toast.success("Order Successfull");
