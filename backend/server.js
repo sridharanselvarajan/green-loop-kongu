@@ -18,8 +18,13 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
+// Root health check endpoint
+app.get("/", (req, res) => {
+  res.json({ message: "GreenLoop Node.js Backend API is running successfully!" });
+});
+
 // YOLO API URL - set this to your Render Python service URL in production
-const YOLO_API_URL = process.env.YOLO_API_URL || "http://localhost:8000";
+const YOLO_API_URL = process.env.YOLO_API_URL;
 
 // Multer for handling image uploads (store in memory, forward to YOLO)
 const upload = multer({ storage: multer.memoryStorage() });
