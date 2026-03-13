@@ -11,6 +11,7 @@ const CompanyOrder = () => {
   const [loading, setLoading] = useState(false);
   const { globalId } = useContext(GlobalContext);
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const fetchGroupOrder = useCallback(
     debounce(async () => {
       try {
@@ -26,7 +27,6 @@ const CompanyOrder = () => {
         console.error("Error fetching data:", error);
       }
     }, 300),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     []
   );
 
