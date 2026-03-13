@@ -85,9 +85,15 @@ function Home() {
     const formData = new FormData();
     formData.append('file', blob, 'webcam-frame.jpg');
 
-    const response = await axios.post(`${process.env.REACT_APP_API_URL || "http://127.0.0.1:3000"}/api/yolo/detect`, formData, {
-      headers: { "Content-Type": "multipart/form-data" },
-    });
+   const response = await axios.post(
+  `${process.env.REACT_APP_YOLO_API_URL}/detect/`,
+  formData,
+  {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  }
+);
 
     const classifiedDetections = classifyWaste(response.data.detections);
     setDetections(classifiedDetections);
@@ -253,9 +259,13 @@ function DropPhoto({ setDetections }) {
     formData.append("file", file);
 
     try {
-      const response = await axios.post(`${process.env.REACT_APP_API_URL || "http://127.0.0.1:3000"}/api/yolo/detect`, formData, {
-        headers: { "Content-Type": "multipart/form-data" },
-      });
+      const response = await axios.post(
+  `${process.env.REACT_APP_YOLO_API_URL}/detect/`,
+  formData,
+  {
+    headers: { "Content-Type": "multipart/form-data" },
+  }
+);
 
       setDetectedImage(`data:image/jpeg;base64,${response.data.image}`);
 
