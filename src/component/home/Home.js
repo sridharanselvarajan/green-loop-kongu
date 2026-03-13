@@ -101,13 +101,25 @@ function Home() {
     console.error("Error detecting objects from webcam:", error);
   }
 };useEffect(() => {
-  let interval;
-  if (isWebcamActive) {
+  let isMounted = true;
+  let timeoutId;
+
+  const loopCapture = async () => {
+    if (isMounted && isWebcamActive) {
+      await captureFrame();
+      // Wait 1.5 seconds after the previous frame finishes processing before capturing the next
+      timeoutId = setTimeout(loopCapture, 1500); 
+    }
+  };
+
+  if (isWebcamActive && videoRef.current && streamRef.current) {
     videoRef.current.srcObject = streamRef.current;
-    interval = setInterval(captureFrame, 2000);
+    loopCapture();
   }
+
   return () => {
-    if (interval) clearInterval(interval);
+    isMounted = false;
+    clearTimeout(timeoutId);
   };
 }, [isWebcamActive]);
   return (
